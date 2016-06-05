@@ -1,14 +1,16 @@
 body { 
+  background-size: 10;
   font-family: verdana; 
   font-size: 80%;
   text-decoration: none;
   color: #555753; 
   background: #ffffff;
-  margin: 0px; 
+  margin: 0px;
 }
 
 .tagline {
 	color: grey;
+	font-size: 100%;
 }
 
 #logo {
