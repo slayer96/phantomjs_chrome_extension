@@ -12,9 +12,7 @@
     "default_popup": "control_panel.html",
     "default_title": "PhantomJs recorder"
   },
-  "background": {
-    "scripts": ["background.js"]
-  },
+ 
   "permissions": [
      "tabs",
      "background",
@@ -22,7 +20,7 @@
   ],
   "content_scripts": [{
         "matches": ["http://*/*", "https://*/*"],
-        "js": ["recorder.js"]
+        "js": ["phantom.js"]
   }],
   "offline_enabled": true,
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
