@@ -7,7 +7,7 @@ if (typeof(EventTypes) == "undefined") {
 
 EventTypes.OpenURL = 0;
 EventTypes.Click = 2;
-EventTypes
+
 
 
 
