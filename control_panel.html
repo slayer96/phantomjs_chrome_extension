@@ -1,0 +1,32 @@
+<html>
+<head>
+
+<title>Test</title>
+
+<link rel="stylesheet" type="text/css" href="./style.css" />
+
+<script src="control.js"></script>
+</head>
+<body>
+<form name="control">
+<div><strong>URL:</strong>
+  <input type="text" size="80" name="url" /> 
+  <input type="submit" id="b_start" name="submit" value="Start" /> 
+  <input type="submit" id="b_stop" name="b_stop" value="Stop" style="display:none;" /> 
+  <input type="submit" id="b_comment" name="b_comment" value="Add Comment" style="display: none;" />
+</div> 
+<div id="comment" style="display:none">
+  <strong>Comment:</strong> 
+  <textarea id="ctext" id="ctext" name="ctext"
+   rows="8" cols="80"></textarea> 
+  <br />
+  <input type="submit" id="b_save_comment" name="b_save_comment" value="Save" /> 
+  <input type="submit" id="b_cancel_comment" name="b_cancel_comment" value="Cancel" />
+</div>
+</form>
+<div id="logo"></div>
+<p class="tagline">     
+    <span id="tagline">Chrome Extension which recorder steps and generates PhantomJS script.</span>
+</p>
+</body>
+</html>
