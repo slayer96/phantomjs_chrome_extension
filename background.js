@@ -1,10 +1,9 @@
 var testcase_items = new Array();
 var active = false;
 var empty = true;
-var tab_id = null;
+var tab_id = 0;
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
-  console.log(request);
   if (request.action == "append") {
     testcase_items[testcase_items.length] = request.obj;
     empty = false;

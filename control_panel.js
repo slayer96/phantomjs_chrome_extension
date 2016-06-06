@@ -15,10 +15,28 @@ Recorder_Proxy.prototype.stop = function() {
   chrome.runtime.sendMessage({action: "stop"});
 }
 
+Recorder_Proxy.prototype.open = function(url, callback) {
+    chrome.tabs.getSelected(null, function(tab) {
+        chrome.tabs.sendMessage(tab.id, {action: "open", 'url': url}, callback);
+    });
+}
+
 // UI //
 
 function App_UI() {
-  this.recorder = new Recorder_Proxy()
+  this.recorder = new Recorder_Proxy();
+  chrome.runtime.sendMessage({action: "get_status"}, function(response) {
+    if (response.active){
+          ui.set_started();
+        } else {
+          if (!response.empty) {
+                ui.set_stopped();
+            }
+            chrome.tabs.getSelected(null, function(tab) {
+                    document.forms[0].elements["url"].value = tab.url;
+              });
+        } 
+    });
 }
 
 App_UI.prototype.start = function() {
@@ -51,14 +69,18 @@ App_UI.prototype.set_started = function() {
   element = document.getElementById('b_stop');
   element.style.displey = '';
   element.onclick = ui.stop;
-  element.value = 'Stop'; 
+  element.value = 'Stop';
+
 }
 
 
 
 App_UI.prototype.set_stopped = function() {
-  var element;
-  
+  var element;  
+  element = document.getElementById('b_stop');
+  element.style.displey = '';
+  element = document.getElementById('b_start');
+  element.style.displey = '';
   element = document.getElementById('b_show_script');
   element.style.displey = '';
 }
@@ -67,6 +89,7 @@ App_UI.prototype.set_stopped = function() {
 var ui;
 window.onload = function() {
   document.querySelector('input#b_start').onclick=function() {ui.start(); return false;};
+  document.querySelector('input#b_stop').onclick=function() {ui.stop(); return false;};
   document.querySelector('input#b_show_script').onclick=function() {ui.show(); return false;};
   ui = new App_UI();
 }

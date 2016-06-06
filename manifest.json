@@ -12,7 +12,10 @@
     "default_popup": "control_panel.html",
     "default_title": "PhantomJs recorder"
   },
- 
+
+  "background": {
+    "scripts": ["background.js"]
+  },
   "permissions": [
      "tabs",
      "background",
