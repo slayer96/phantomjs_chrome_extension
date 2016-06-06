@@ -15,32 +15,41 @@ function PhantomRender(document) {
 }
 
 PhantomRender.prototype.space = function() {
-	this.document.write("\n");
+	this.document.writeln('\n');	
 }
 
 PhantomRender.prototype.text = function(_text) {
 	this.document.writeln(_text);
 }
 
-PhantomRender.prototype.statement = function(_text, index) {
+PhantomRender.prototype.statement = function(_text, indent) {
   	if(indent==undefined) indent = 1;
-  	var output = (new Array(4*indent)).join(" ") + text;
+  	var output = (new Array(4*indent)).join(" ") + _text;
   	this.document.writeln(output);
 }
-}
+
+
+PhantomRender.prototype.OpenURL
 
 PhantomRender.prototype.render = function() {
 	this.writeHeader();
 }
 
 PhantomRender.prototype.writeHeader = function() {
-	this.text("/* ------------------------------- */", 0);
+	this.text("/* ------------------------------- ", 0);
 	this.text(" Phantom generator ", 0);
-	this.text(" --------------------------------- ", 0);
+	this.text(" --------------------------------- /*\n\n\n", 0);
 	this.space();
+
 	this.statement("var page = require('webpage').create();", 0)
 	this.space();
 }
+
+
+PhantomRender.prototype.urlOpen = function(url) {
+	this.statement("page.open('" + url + "', function() {")
+}
+
 
 
 var script_generate = new PhantomRender(document);
