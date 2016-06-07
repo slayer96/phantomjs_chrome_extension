@@ -5,15 +5,18 @@ var tab_id = 0;
 
 chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   if (request.action == "append") {
+    alert("Append");
     testcase_items[testcase_items.length] = request.obj;
     empty = false;
     sendResponse({});
   }
   if (request.action == "poke") {
+    alert("Poke");
     testcase_items[testcase_items.length - 1] = request.obj;
     sendResponse({});
   }
   if (request.action == "get_status") {
+    //alert('get_status')
     sendResponse({'active': active, 'empty': empty});
   }
   if (request.action == "start") {
@@ -30,11 +33,14 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   	}
   }
   if (request.action == "stop") {
+    alert('Stop');
     active = false;
     chrome.tabs.sendMessage(tab_id, {action: "stop"});
-    sendResponse({});
+    sendResponse({stop: truex});
   }
-  if (request.action == "get_items") {
-	sendResponse({'items': testcase_items});
-  }
+  
+  if ((request.action == "get_items") && (testcase_items != '')) {
+  alert('get_items');
+  sendResponse({'items': testcase_items});
+  }  
 });

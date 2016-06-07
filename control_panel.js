@@ -10,16 +10,16 @@ Recorder_Proxy.prototype.start = function(url) {
   });
 }
 
-
-Recorder_Proxy.prototype.stop = function() {
-  chrome.runtime.sendMessage({action: "stop"});
-}
-
 Recorder_Proxy.prototype.open = function(url, callback) {
     chrome.tabs.getSelected(null, function(tab) {
         chrome.tabs.sendMessage(tab.id, {action: "open", 'url': url}, callback);
     });
 }
+
+Recorder_Proxy.prototype.stop = function() {
+  chrome.runtime.sendMessage({action: "stop"});
+}
+
 
 // UI //
 
@@ -39,6 +39,7 @@ function App_UI() {
     });
 }
 
+
 App_UI.prototype.start = function() {
   var url = document.forms[0].elements["url"].value;
     if (url == "") {
@@ -46,15 +47,19 @@ App_UI.prototype.start = function() {
     }
     if ( (url.indexOf("http://") == -1) && (url.indexOf("https://")) ) {
         url = "http://" + url;
-    }    
+    }
     ui.set_started()
     ui.recorder.start(url);  
-    return false
-    
-  }
+    return false    
+}
+
 
 App_UI.prototype.show = function() {
-  chrome.tabs.create({url: "./phantom.html"});  
+   if(options && options.xy) {
+    chrome.tabs.create({url: "./phantom.html?xy=true"});
+  } else {
+    chrome.tabs.create({url: "./phantom.html"});
+  }
 }
 
 
@@ -64,15 +69,14 @@ App_UI.prototype.stop = function() {
   return false;
 }
 
+
 App_UI.prototype.set_started = function() {
   var element;
   element = document.getElementById('b_stop');
   element.style.displey = '';
   element.onclick = ui.stop;
   element.value = 'Stop';
-
 }
-
 
 
 App_UI.prototype.set_stopped = function() {
