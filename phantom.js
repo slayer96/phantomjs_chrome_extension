@@ -57,7 +57,7 @@ PhantomRender.prototype.content = function(_text) {
   this.document.writeln("    ... " + _text);
 }
 
-phantomRenderer.prototype.cleanStringForXpath = function(str, escape)  {
+PhantomRenderer.prototype.cleanStringForXpath = function(str, escape)  {
     var parts  = str.match(/[^'"]+|['"]/g);
     parts = parts.map(function(part){
         if (part === "'")  {
@@ -273,10 +273,11 @@ PhantomRenderer.prototype.getFormSelector = function(item) {
 
 PhantomRender.prototype.click = function(item) {
   var tag = item.info.tagName.toLowerCase();
-  if(this.with_xy && !(tag == 'a' || tag == 'input' || tag == 'button')) {
-    this.statement("var e = document.createEvent('MouseEvents');", 0);
-    this.statement("e.initMouseEvent('click', true, true, window, 0, 0, ");
-    this.statement("a.dispatchEvent(e);")
+  if (!(tag == 'a' || tag == 'input' || tag == 'button')) {
+    this.statement("var e = document.createEvent('MouseEvents');", item);
+    this.statement("e.initMouseEvent('click', true, true, window" + item.x + ',' + item.y + ");");
+    this.statement("a.dispatchEvent(e);");
+ }
 }
 
 PhantomRender.prototype.writeFooter = function() {

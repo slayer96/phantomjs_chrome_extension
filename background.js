@@ -6,7 +6,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   //console.log(request);
   //alert('request: ' + request);
   if (request.action == "append") {
-    alert('append')
+    //alert('append')
     testcase_items[testcase_items.length] = request.obj;
     empty = false;
     sendResponse({});
@@ -29,7 +29,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         testcase_items = new Array();
         tab_id = request.recorded_tab;
         chrome.tabs.update(tab_id, {url: request.start_url}, function(tab) {
-          alert("You are now recording your test sequence.");
+          //alert("You are now recording your test sequence.");
           chrome.tabs.sendMessage(tab_id, {action: "open", 'url': request.start_url});
           sendResponse({start: true});
         });
@@ -37,7 +37,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   }
 
   if (request.action == "stop") {
-    alert('stop')
+    //alert('stop')
     active = false;
     chrome.tabs.sendMessage(tab_id, {action: "stop"});
     sendResponse({'items': testcase_items});
@@ -45,7 +45,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
   }
 
   if (request.action == "get_items") {
-    alert('het_items')
+    //alert('het_items')
     sendResponse({'items': testcase_items});
   }
 });
