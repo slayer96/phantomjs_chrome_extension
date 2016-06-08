@@ -31,7 +31,7 @@ RecorderProxy.prototype.open = function(url, callback) {
 function RecorderUI() {
   this.recorder = new RecorderProxy();
   chrome.runtime.sendMessage({action: "get_status"}, function(response) {
-    alert(response.active);
+    //alert(response.active);
       if (response.active) {
         ui.set_started();
       } else {

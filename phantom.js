@@ -57,7 +57,7 @@ PhantomRender.prototype.content = function(_text) {
   this.document.writeln("    ... " + _text);
 }
 
-PhantomRenderer.prototype.cleanStringForXpath = function(str, escape)  {
+PhantomRender.prototype.cleanStringForXpath = function(str, escape)  {
     var parts  = str.match(/[^'"]+|['"]/g);
     parts = parts.map(function(part){
         if (part === "'")  {
@@ -106,16 +106,16 @@ var cc = EventTypes;
 
 
 
-PhantomRenderer.prototype.content = function(text) {
+PhantomRender.prototype.content = function(text) {
   this.document.writeln("    ... " + text);
 }
 
-PhantomRenderer.prototype.pyout = function(text) {
+PhantomRender.prototype.pyout = function(text) {
   this.document.writeln("    " + text);
 }
 
 
-PhantomRenderer.prototype.regexp_escape = function(text) {
+PhantomRender.prototype.regexp_escape = function(text) {
   return text.replace(/[-[\]{}()*+?.,\\^$|#\s\/]/g, "\\$&");
 };
 
@@ -189,7 +189,7 @@ PhantomRender.prototype.pyrepr = function(text, escape) {
   return s;
 }
 
-PhantomRenderer.prototype.shortUrl = function(url) {
+PhantomRender.prototype.shortUrl = function(url) {
   return url.substr(url.indexOf('/', 10), 999999999);
 }
 
@@ -202,16 +202,16 @@ PhantomRender.prototype.openUrl = function(item) {
 }
 
 
-PhantomRenderer.prototype.pageLoad = function(item) {
+PhantomRender.prototype.pageLoad = function(item) {
   var url = this.pyrepr(this.rewriteUrl(item.url));
   this.history.push(url);
 }
 
-PhantomRenderer.prototype.normalizeWhitespace = function(s) {
+PhantomRender.prototype.normalizeWhitespace = function(s) {
   return s.replace(/^\s*/, '').replace(/\s*$/, '').replace(/\s+/g, ' ');
 }
 
-PhantomRenderer.prototype.getControl = function(item) {
+PhantomRender.prototype.getControl = function(item) {
   var type = item.info.type;
   var tag = item.info.tagName.toLowerCase();
   var selector;
@@ -227,7 +227,7 @@ PhantomRenderer.prototype.getControl = function(item) {
   return selector;
 }
   
-PhantomRenderer.prototype.getControlXPath = function(item) {
+PhantomRender.prototype.getControlXPath = function(item) {
   var type = item.info.type;
   var way;
   if ((type == "submit" || type == "button") && item.info.value)
@@ -242,7 +242,7 @@ PhantomRenderer.prototype.getControlXPath = function(item) {
   return way;
 }
 
-PhantomRenderer.prototype.getLinkXPath = function(item) {
+PhantomRender.prototype.getLinkXPath = function(item) {
   var way;
   if (item.text)
     way = 'normalize-space(text())=' + this.cleanStringForXpath(this.normalizeWhitespace(item.text), true);
@@ -256,7 +256,7 @@ PhantomRenderer.prototype.getLinkXPath = function(item) {
   return way;
 }
 
-PhantomRenderer.prototype.getFormSelector = function(item) {
+PhantomRender.prototype.getFormSelector = function(item) {
   var info = item.info;
   if(!info.form) {
     return '';
