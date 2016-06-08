@@ -1,6 +1,6 @@
 {
   "name": "Phantom_script_generate",
-  "version": "1.0",
+  "version": "0.5",
   "manifest_version": 2,
   "description": "Chrome Extension which recorder steps and generates PhantomJS script",
   "icons": {
@@ -25,7 +25,7 @@
         "matches": ["http://*/*", "https://*/*"],
         "js": ["phantom.js"]
   }],
-  "offline_enabled": true,
+  "offline_enabled": false,
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
 }
 

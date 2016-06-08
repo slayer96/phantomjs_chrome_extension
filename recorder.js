@@ -46,7 +46,7 @@ if (typeof(TestRecorder) == "undefined") {
 //string if no text is currently selected in the browser.
 
 //---------------------------------------------------------------------------
-
+alert('recorder');
 if (typeof(TestRecorder.Browser) == "undefined") {
     TestRecorder.Browser = {};
 }
@@ -906,9 +906,6 @@ TestRecorder.Recorder.prototype.clickaction = function(e) {
     }
 }
 
-TestRecorder.Recorder.prototype.addComment = function(text) {
-    this.testcase.append(new TestRecorder.CommentEvent(text));
-}
 
 TestRecorder.Recorder.prototype.check = function(e) {
     // This method is called by our low-level event handler when the mouse 
@@ -1093,11 +1090,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         recorder.open(request.url);
         sendResponse({});
     }
-    if (request.action == "addComment") {
-        recorder.addComment(request.text);
-        sendResponse({});
-    }
-});
 
 //get current status from background
 chrome.runtime.sendMessage({action: "get_status"}, function(response) {
