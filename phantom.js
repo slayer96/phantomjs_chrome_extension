@@ -1,9 +1,5 @@
 if (typeof(EventTypes) == "undefined") {
-<<<<<<< HEAD
     EventTypes = {};
-=======
-  	EventTypes = {};
->>>>>>> 527daceb6555c99d3093464ace88f86619db2d1b
 }
 
 EventTypes.OpenUrl = 0;
@@ -34,11 +30,7 @@ EventTypes.KeyPress = 23;
 
 
 function PhantomRender(document) {
-<<<<<<< HEAD
   this.document = document;
-=======
-	this.document = document;
->>>>>>> 527daceb6555c99d3093464ace88f86619db2d1b
   this.items = null;
   this.history = new Array();
   this.last_events = new Array();
@@ -47,7 +39,6 @@ function PhantomRender(document) {
 }
 
 PhantomRender.prototype.space = function() {
-<<<<<<< HEAD
   this.document.writeln();  
 }
 
@@ -63,19 +54,6 @@ PhantomRender.prototype.statement = function(_text, indent) {
     //var output = (new Array(4*indent)).join(" ") + _text;
     var output = _text;
     this.document.writeln(output);
-=======
-	this.document.writeln();	
-}
-
-PhantomRender.prototype.text = function(_text) {
-	this.document.writeln(_text);
-}
-
-PhantomRender.prototype.statement = function(_text, indent) {
-  	if(indent==undefined) indent = 1;
-  	var output = (new Array(4*indent)).join(" ") + _text;
-  	this.document.writeln(output);
->>>>>>> 527daceb6555c99d3093464ace88f86619db2d1b
 }
 
 
@@ -147,17 +125,12 @@ PhantomRender.prototype.regexp_escape = function(text) {
 
 
 PhantomRender.prototype.render = function() {
-<<<<<<< HEAD
-=======
-
->>>>>>> 527daceb6555c99d3093464ace88f86619db2d1b
   var etypes = EventTypes;
   this.document.open();
   this.document.write("<" + "pre" + ">");
   this.writeHeader();
   var last_down = null;
   var forget_click = false;
-<<<<<<< HEAD
   if (this.items) {
 	  for (var i=0; i < this.items.length; i++) {
 	    var item = this.items[i];
@@ -207,53 +180,6 @@ PhantomRender.prototype.render = function() {
 		this.text('ERROR');
 
 	} 	
-=======
-  
-  for (var i=0; i < this.items.length; i++) {
-    var item = this.items[i];
-   
-    if(i==0) {
-        if(item.type!=etypes.OpenUrl) {
-            this.text("ERROR: the recorded sequence does not start with a url openning.");
-        } else {
-          this.startUrl(item);
-          continue;
-        }
-    }
-        this.s;
-      // remember last MouseDown to identify drag
-  if(item.type==etypes.MouseDown) {
-    last_down = this.items[i];
-    continue;
-  }
-  if(item.type==etypes.MouseUp && last_down) {
-    if(last_down.x == item.x && last_down.y == item.y) {
-      forget_click = false;
-      continue;
-  } else {
-      item.before = last_down;
-      this[this.dispatch[etypes.MouseDrag]](item);
-      last_down = null;
-      forget_click = true;
-      continue;
-    }
-  }
-
-  if(item.type==etypes.Click && forget_click) {
-    forget_click = false;
-    continue;
-  }
-  if(i>0 && item.type==etypes.Click && 
-        ((this.items[i-1].type>=etypes.CheckPageTitle && this.items[i-1].type<=etypes.CheckImageSrc) || this.items[i-1].type==etypes.ScreenShot)) {
-      continue;
-    }
-
-  if (this.dispatch[item.type]) {
-      this[this.dispatch[item.type]](item);
-    }
-  }
-  
->>>>>>> 527daceb6555c99d3093464ace88f86619db2d1b
   this.writeFooter();
   this.document.write("<" + "/" + "pre" + ">");
   this.document.close();
@@ -367,26 +293,16 @@ PhantomRender.prototype.writeFooter = function() {
 }
 
 PhantomRender.prototype.writeHeader = function() {
-<<<<<<< HEAD
   this.text("/*-------------------------------", 0);
   this.text("Phantom generator", 0);
   this.text("-------------------------------*/", 0);
   this.space();
   this.statement("var page = require('webpage').create();", 0);
   this.statement("console.log('PhantomJS');");
-=======
-	this.text("/*-------------------------------", 0);
-	this.text("Phantom generator", 0);
-	this.text("-------------------------------*/", 0);
-	this.space();
-	this.statement("var page = require('webpage').create();", 0);
-	this.statement("console.log('PhantomJS');");
->>>>>>> 527daceb6555c99d3093464ace88f86619db2d1b
 } 
 
 
 PhantomRender.prototype.urlOpen = function(url) {
-<<<<<<< HEAD
   this.statement("page.open('" + url + "', function() {");
 }
 
@@ -397,20 +313,5 @@ window.onload = function onpageload() {
       script_generate.items = response.items;
       alert('items: ', script_generate.items);
       script_generate.render();      
-=======
-	this.statement("page.open('" + url + "', function() {");
-}
-
-
-
-
-var script_generate = new PhantomRender(document);
-window.onload = function onpageload() {
-  	chrome.runtime.sendMessage({action: "stop"}, function(response) {
-      script_generate.items = response.items;
-      if (script_generate.items) {
-      script_generate.render();   
-      } 
->>>>>>> 527daceb6555c99d3093464ace88f86619db2d1b
   });
 }

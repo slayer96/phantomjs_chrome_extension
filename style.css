@@ -1,26 +1,14 @@
-<<<<<<< HEAD
 body { 
-=======
-body {
->>>>>>> 527daceb6555c99d3093464ace88f86619db2d1b
   font-family: verdana; 
   font-size: 80%;
   text-decoration: none;
   color: #555753; 
   background: #ffffff;
-<<<<<<< HEAD
   margin: 0px; 
-=======
-  margin: 0px;
->>>>>>> 527daceb6555c99d3093464ace88f86619db2d1b
 }
 
 .tagline {
 	color: grey;
-<<<<<<< HEAD
-=======
-	font-size: 100%;
->>>>>>> 527daceb6555c99d3093464ace88f86619db2d1b
 }
 
 #logo {

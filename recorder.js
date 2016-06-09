@@ -46,11 +46,7 @@ if (typeof(TestRecorder) == "undefined") {
 //string if no text is currently selected in the browser.
 
 //---------------------------------------------------------------------------
-<<<<<<< HEAD
 
-=======
-alert('recorder');
->>>>>>> 527daceb6555c99d3093464ace88f86619db2d1b
 if (typeof(TestRecorder.Browser) == "undefined") {
     TestRecorder.Browser = {};
 }
@@ -815,11 +811,7 @@ TestRecorder.Recorder = function() {
 //stable reference to the instance.
 
 recorder = new TestRecorder.Recorder();
-<<<<<<< HEAD
 //recorder.logfunc = function(msg) {console.log(msg);};
-=======
-recorder.logfunc = function(msg) {console.log(msg);};
->>>>>>> 527daceb6555c99d3093464ace88f86619db2d1b
 
 TestRecorder.Recorder.prototype.start = function() {
     this.window = window;
@@ -839,11 +831,7 @@ TestRecorder.Recorder.prototype.start = function() {
     script.parentNode.removeChild(script);
     
     this.active = true;
-<<<<<<< HEAD
     //this.log("recorder started");
-=======
-    this.log("recorder started");
->>>>>>> 527daceb6555c99d3093464ace88f86619db2d1b
 }
 
 TestRecorder.Recorder.prototype.stop = function() {
@@ -918,12 +906,9 @@ TestRecorder.Recorder.prototype.clickaction = function(e) {
     }
 }
 
-<<<<<<< HEAD
 TestRecorder.Recorder.prototype.addComment = function(text) {
     this.testcase.append(new TestRecorder.CommentEvent(text));
 }
-=======
->>>>>>> 527daceb6555c99d3093464ace88f86619db2d1b
 
 TestRecorder.Recorder.prototype.check = function(e) {
     // This method is called by our low-level event handler when the mouse 
@@ -1091,11 +1076,7 @@ TestRecorder.Recorder.prototype.strip = function(s) {
 
 TestRecorder.Recorder.prototype.log = function(text) {
     if (this.logfunc) {
-<<<<<<< HEAD
         //this.logfunc(text);
-=======
-        this.logfunc(text);
->>>>>>> 527daceb6555c99d3093464ace88f86619db2d1b
     }
 }
 
@@ -1112,14 +1093,11 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         recorder.open(request.url);
         sendResponse({});
     }
-<<<<<<< HEAD
     if (request.action == "addComment") {
         recorder.addComment(request.text);
         sendResponse({});
     }
 });
-=======
->>>>>>> 527daceb6555c99d3093464ace88f86619db2d1b
 
 //get current status from background
 chrome.runtime.sendMessage({action: "get_status"}, function(response) {

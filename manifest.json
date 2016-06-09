@@ -1,5 +1,4 @@
 {
-<<<<<<< HEAD
   "name": "PhantomJS_generator",
   "version": "0.5",
   "manifest_version": 2,
@@ -10,22 +9,6 @@
     "default_icon": "makina-icon.png",
     "default_popup": "control_panel.html"
   },
-=======
-  "name": "Phantom_script_generate",
-  "version": "0.5",
-  "manifest_version": 2,
-  "description": "Chrome Extension which recorder steps and generates PhantomJS script",
-  "icons": {
-    "48": "makina-icon.png",
-    "128": "makina-icon-128.png" 
-  },
-  "browser_action": {
-    "default_icon": "makina-icon.png",
-    "default_popup": "control_panel.html",
-    "default_title": "PhantomJs recorder"
-  },
-
->>>>>>> 527daceb6555c99d3093464ace88f86619db2d1b
   "background": {
     "scripts": ["background.js"]
   },
@@ -36,17 +19,8 @@
   ],
   "content_scripts": [{
         "matches": ["http://*/*", "https://*/*"],
-<<<<<<< HEAD
         "js": ["recorder.js"]
   }],
   "offline_enabled": true,
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
 }
-=======
-        "js": ["phantom.js"]
-  }],
-  "offline_enabled": false,
-  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'"
-}
-
->>>>>>> 527daceb6555c99d3093464ace88f86619db2d1b
