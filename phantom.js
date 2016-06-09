@@ -205,7 +205,7 @@ PhantomRender.prototype.shortUrl = function(url) {
 
 PhantomRender.prototype.openUrl = function(item) {
   var url = this.pyrepr(this.rewriteUrl(item.url));
-  this.statement("page.open('" + url + ", function(status) {", 0)
+  this.statement("page.open(" + url + ", function(status) {", 0)
 }
 
 
@@ -281,9 +281,7 @@ PhantomRender.prototype.getFormSelector = function(item) {
 PhantomRender.prototype.click = function(item) {
   var tag = item.info.tagName.toLowerCase();
   if (!(tag == 'a' || tag == 'input' || tag == 'button')) {
-    this.statement("var e = document.createEvent('MouseEvents');", item);
-    this.statement("e.initMouseEvent('click', true, true, window" + item.x + ',' + item.y + ");");
-    this.statement("a.dispatchEvent(e);");
+    this.statement("page.sendEvent('click', " + item.x + "," + item.y + "," + "button='left');");
  }
 }
 
@@ -302,16 +300,11 @@ PhantomRender.prototype.writeHeader = function() {
 } 
 
 
-PhantomRender.prototype.urlOpen = function(url) {
-  this.statement("page.open('" + url + "', function() {");
-}
-
-
 var script_generate = new PhantomRender(document);
 window.onload = function onpageload() {
     chrome.runtime.sendMessage({action: "stop"}, function(response) {
       script_generate.items = response.items;
-      alert('items: ', script_generate.items);
+      //alert('items: ', script_generate.items);
       script_generate.render();      
   });
 }
