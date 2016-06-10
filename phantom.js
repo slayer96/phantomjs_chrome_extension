@@ -144,7 +144,7 @@ PhantomRender.prototype.render = function() {
 	        }
 	    }
 	        this.s;
-	      // remember last MouseDown to identify drag
+	      //remember last MouseDown to identify drag
 	  if(item.type==etypes.MouseDown) {
 	    last_down = this.items[i];
 	    continue;
@@ -282,9 +282,31 @@ PhantomRender.prototype.click = function(item) {
   var tag = item.info.tagName.toLowerCase();
   if (!(tag == 'a' || tag == 'input' || tag == 'button')) {
     this.statement("page.sendEvent('click', " + item.x + "," + item.y + "," + "button='left');");
+ } else {
+    var selector;
+    if (tag == 'a') {
+      var xpath_selector = this.getLinkXPath(item);
+      if (xpath_selector) {
+        selector = 'x("//a['+xpath_selector+']")';
+      } else {
+        selector = item.info.selector;
+      }
+    } else if (tag == 'input' || tag == 'button') {
+      selector = this.getFormSelector(item) + this.getControl(item);
+      selector = '"' + selector + '"';
+    } else {
+      selector = '"' + item.info.selector + '"';
+    }
+    this.statement('page.evaluate(function() {', 0);
+    this.statement("var form = document.getElementById(" + item.info.form.id +")");
+    this.statement('});', 0);
  }
 }
 
+PhantomRender.prototype.keypress = function() {
+  this.statement("page.sendEvent('keypress', page.event.key." + item.key + ");");
+}
+ 
 PhantomRender.prototype.writeFooter = function() {
   this.statement("phantom.exit();", 0);
   this.statement("});", 0);

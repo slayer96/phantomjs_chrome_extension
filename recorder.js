@@ -377,6 +377,7 @@ TestRecorder.ElementInfo.prototype.getCleanCSSSelector = function(element) {
         if(accuracy==1) return selector;
     }
     if(element.className) {
+        //alert(element.className);
         tmp_selector = '.' + element.className.trim().replace(/ /g,".");
         if(document.querySelectorAll(tmp_selector).length < accuracy) {
             selector = tmp_selector;
@@ -529,6 +530,8 @@ TestRecorder.ContextMenu.prototype.build = function(t, x, y) {
 
 
 TestRecorder.ContextMenu.prototype.scape = function() {
+
+
     return false;
 }
 
@@ -1046,10 +1049,6 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
     }
     if (request.action == "open") {
         recorder.open(request.url);
-        sendResponse({});
-    }
-    if (request.action == "addComment") {
-        recorder.addComment(request.text);
         sendResponse({});
     }
 });
