@@ -15,23 +15,24 @@ RecorderProxy.prototype.stop = function() {
     chrome.runtime.sendMessage({action: "stop"});
 }
 
-
-RecorderProxy.prototype.get_item = function() {
-  chrome.ta
-}
-
 RecorderProxy.prototype.open = function(url, callback) {
     chrome.tabs.getSelected(null, function(tab) {
         chrome.tabs.sendMessage(tab.id, {action: "open", 'url': url}, callback);
     });
 }
+
+RecorderProxy.prototype.addComment = function(text, callback) {
+    chrome.tabs.getSelected(null, function(tab) {
+        chrome.tabs.sendMessage(tab.id, {action: "addComment", 'text': text}, callback);
+    });
+}
+
 //-----------------------------------------------
 // UI
 //----------------------------------------------
 function RecorderUI() {
   this.recorder = new RecorderProxy();
   chrome.runtime.sendMessage({action: "get_status"}, function(response) {
-    //alert(response.active);
       if (response.active) {
         ui.set_started();
       } else {
@@ -67,8 +68,10 @@ RecorderUI.prototype.set_started = function() {
   e.value = "Stop Recording";
   e = document.getElementById("bstart");
   e.style.display = 'none';
-  e = document.getElementById("bshowscript");
+  e = document.getElementById("bshow");
   e.style.display = 'none';
+  //e = document.getElementById("bshowxy");
+  //e.style.display = 'none';
 }
 
 RecorderUI.prototype.stop = function() {
@@ -82,14 +85,19 @@ RecorderUI.prototype.set_stopped = function() {
   e.style.display = 'none';
   e = document.getElementById("bstart");
   e.style.display = '';
-  e = document.getElementById("bshowscript");
+  e = document.getElementById("bshow");
   e.style.display = '';
+ // e = document.getElementById("bshowxy");
+  //e.style.display = '';
 }
 
 
-
-RecorderUI.prototype.show = function() {
+RecorderUI.prototype.show = function(options) {
+  if(options && options.xy) {
+    chrome.tabs.create({url: "./phantom.html?xy=true"});
+  } else {
     chrome.tabs.create({url: "./phantom.html"});
+  }
 }
 
 
@@ -97,10 +105,9 @@ var ui;
 
 // bind events to ui elements
 window.onload = function(){
-    ui = new RecorderUI();
     document.querySelector('input#bstart').onclick=function() {ui.start(); return false;};
     document.querySelector('input#bstop').onclick=function() {ui.stop(); return false;};
-    document.querySelector('input#bshowscript').onclick=function() {ui.show(); return false;};
-
-
+    document.querySelector('input#bshow').onclick=function() {ui.show(); return false;};
+    //document.querySelector('input#bshowxy').onclick=function() {ui.show({xy: true}); return false;};
+    ui = new RecorderUI();
 }

@@ -46,7 +46,7 @@ if (typeof(TestRecorder) == "undefined") {
 //string if no text is currently selected in the browser.
 
 //---------------------------------------------------------------------------
-alert('recorder');
+//alert('recorder');
 if (typeof(TestRecorder.Browser) == "undefined") {
     TestRecorder.Browser = {};
 }
@@ -811,7 +811,7 @@ TestRecorder.Recorder = function() {
 //stable reference to the instance.
 
 recorder = new TestRecorder.Recorder();
-recorder.logfunc = function(msg) {console.log(msg);};
+//recorder.logfunc = function(msg) {console.log(msg);};
 
 TestRecorder.Recorder.prototype.start = function() {
     this.window = window;
@@ -1090,7 +1090,7 @@ chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
         recorder.open(request.url);
         sendResponse({});
     }
-
+});
 //get current status from background
 chrome.runtime.sendMessage({action: "get_status"}, function(response) {
     if (response.active) {

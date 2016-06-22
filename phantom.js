@@ -133,14 +133,15 @@ PhantomRender.prototype.render = function() {
     var item = this.items[i];
    
     if(i==0) {
-        if(item.type!=etypes.OpenUrl) {
-            this.text("ERROR: the recorded sequence does not start with a url openning.");
-        } else {
-          this.startUrl(item);
+        //if(item.type!=etypes.OpenUrl) {
+        //    this.text("//ERROR: the recorded sequence does not start with a url openning.");
+        //} else {
+          //this.startUrl(item);
+          this.openUrl(item);
           continue;
-        }
+        
     }
-        this.s;
+        //this.s;
       // remember last MouseDown to identify drag
   if(item.type==etypes.MouseDown) {
     last_down = this.items[i];
@@ -194,11 +195,15 @@ PhantomRender.prototype.shortUrl = function(url) {
 }
 
 
+PhantomRender.prototype.mousedrag = function(item){
+  this.statement("mousedrag", 0);
+}
+
 
 
 PhantomRender.prototype.openUrl = function(item) {
   var url = this.pyrepr(this.rewriteUrl(item.url));
-  this.statement("page.open('" + url + ", function(status) {", 0)
+  this.statement("page.open(" + url + ", function(status) {", 0)
 }
 
 
@@ -274,7 +279,7 @@ PhantomRender.prototype.getFormSelector = function(item) {
 PhantomRender.prototype.click = function(item) {
   var tag = item.info.tagName.toLowerCase();
   if (!(tag == 'a' || tag == 'input' || tag == 'button')) {
-    this.statement("var e = document.createEvent('MouseEvents');", item);
+    this.statement("var e = document.createEvent('MouseEvents');", 0);
     this.statement("e.initMouseEvent('click', true, true, window" + item.x + ',' + item.y + ");");
     this.statement("a.dispatchEvent(e);");
  }
@@ -291,7 +296,7 @@ PhantomRender.prototype.writeHeader = function() {
 	this.text("-------------------------------*/", 0);
 	this.space();
 	this.statement("var page = require('webpage').create();", 0);
-	this.statement("console.log('PhantomJS');");
+	this.statement("console.log('PhantomJS');", 0);
 } 
 
 
@@ -304,10 +309,13 @@ PhantomRender.prototype.urlOpen = function(url) {
 
 var script_generate = new PhantomRender(document);
 window.onload = function onpageload() {
-  	chrome.runtime.sendMessage({action: "stop"}, function(response) {
+  	chrome.runtime.sendMessage({action: "get_items"}, function(response) {
       script_generate.items = response.items;
-      if (script_generate.items) {
-      script_generate.render();   
-      } 
+      if (script_generate.items == null) {
+        alert('HERE', script_generate.items);
+      } else {
+      script_generate.render();      
+      }
   });
+
 }
