@@ -141,7 +141,7 @@ PhantomRender.prototype.render = function() {
           continue;
         
     }
-        //this.s;
+        //  this.s;
       // remember last MouseDown to identify drag
   if(item.type==etypes.MouseDown) {
     last_down = this.items[i];
